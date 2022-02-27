@@ -27,33 +27,46 @@ function Login(props) {
   };
 
   async function myFetch() {
+    let response = null;
     try {
-      const response = await axios({
+      response = await axios({
         method: "post",
         url: API,
         data: {
           email: values.correo,
           password: values.password,
         },
-      });
-      return response;
+      })
+      setIsLoading(false);           
     } catch (error) {
-      console.error(error);
+      console.warn(error.response.status);
+      console.warn("error", "Acceso no autorizado");
+      alert("acceso no autorizado");
+      // console.log(response.statusText);      
       setIsLoading(false);
+    } 
+
+    if (response != null)
+    {
+     // console.log(response.status);
+     //console.log(response.statusText);
+     // console.log(response.headers);
+     // console.log(response.config);
+     // console.log(response.data.token);
+
+     props.apiTokenHandler(response.data.token);
+     props.userHandler(values.correo);
+     setValues({ password: "", correo: "" });
+     setErrors({ password: "invisible", correo: "invisible" });
+     navigate("/", { replace: true });
+     setIsLoading(false);
     }
+      
   }
 
   useEffect(() => {
     if (isLoading) {
-      myFetch().then((response) => {
-        console.log(response.data.token);
-        props.apiTokenHandler(response.data.token);
-        props.userHandler(values.correo);
-        setIsLoading(false);
-        setValues({ password: "", correo: "" });
-        setErrors({ password: "invisible", correo: "invisible" });
-        navigate("/", { replace: true });
-      });
+      myFetch();
     }
   }, [isLoading]);
 

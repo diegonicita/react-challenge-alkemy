@@ -25,8 +25,8 @@ function App() {
       <MyNavbar />
       <Routes>        
         <Route path="/" element={<PrivateRoute><Home /></PrivateRoute> } />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />                
+        <Route path="about" element={<PrivateRoute><About /></PrivateRoute>} />
+        <Route path="contact" element={<PrivateRoute><Contact /></PrivateRoute>} />                
         <Route path="login" element=
           { 
            <NotLoggedRoute>
