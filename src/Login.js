@@ -8,7 +8,7 @@ import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
 const axios = require("axios");
-const API = process.env.API || "http://challenge-react.alkemy.org/";
+const API = process.env.REACT_APP_API || "http://challenge-react.alkemy.org/";
 
 function Login(props) {
   const [isLoading, setIsLoading] = React.useState(false);
