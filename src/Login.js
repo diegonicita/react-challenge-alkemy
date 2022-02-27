@@ -8,6 +8,7 @@ import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
 const axios = require("axios");
+const API = process.env.API || "http://challenge-react.alkemy.org/";
 
 function Login(props) {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -29,7 +30,7 @@ function Login(props) {
     try {
       const response = await axios({
         method: "post",
-        url: "http://challenge-react.alkemy.org/",
+        url: API,
         data: {
           email: values.correo,
           password: values.password,
