@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { DataContext} from "../Context/DataContext";
 import "./Home.css";
-import Dish from "../../Dish";
+import Dish from "../Dish/Dish";
 import CardsList from "../Cards/CardsList";
 import { useReducer, useEffect } from "react";
 

@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useContext } from "react";
-import { DataContext} from "./Components/Context/DataContext";
+import { DataContext} from "../Context/DataContext";
 
 function Dish({id, title, description, image, price, time, health}) {
 
