@@ -6,6 +6,7 @@ import { AuthContext } from "./UserContextAuth";
 import { useContext } from "react";
 import "./Home.css";
 import Dish from "./Dish";
+import Cards from "./Cards";
 
 function Home() {
   const { user, apiToken, handleUser } = useContext(AuthContext);
@@ -22,7 +23,10 @@ function Home() {
             <Col sm><Dish title="Plato 3" description="Plato tipico de la comida italiana"/></Col>
             <Col sm><Dish title="Plato 4" description="Plato tipico de la comida italiana"/></Col>
           </Row>   
+
+         {/* <Cards />  */}
       </Container>
+      
       </div>   
   );
 }

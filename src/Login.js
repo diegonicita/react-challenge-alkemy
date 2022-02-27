@@ -31,8 +31,8 @@ function Login(props) {
         method: "post",
         url: "http://challenge-react.alkemy.org/",
         data: {
-          email: "challenge@alkemy.org",
-          password: "react",
+          email: values.correo,
+          password: values.password,
         },
       });
       return response;
@@ -47,7 +47,7 @@ function Login(props) {
       myFetch().then((response) => {
         console.log(response.data.token);
         props.apiTokenHandler(response.data.token);
-        props.userHandler("challenge@alkemy.org");
+        props.userHandler(values.correo);
         setIsLoading(false);
         setValues({ password: "", correo: "" });
         setErrors({ password: "invisible", correo: "invisible" });
