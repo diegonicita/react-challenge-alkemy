@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { AuthContext } from "./UserContextAuth";
+import { AuthContext } from "../Context/UserContextAuth";
 import { useContext } from "react";
 
 function MyNavbar() {

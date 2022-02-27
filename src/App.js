@@ -1,14 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import About from "./About";
-import Contact from "./Contact";
-import Login from "./Login";
-import MyNavbar from "./MyNavbar";
-import {NotLoggedRoute} from "./NotLoggedRoute";
-import {PrivateRoute} from "./PrivateRoute";
-import {AuthContext} from "./UserContextAuth";
+import Home from "./Components/Home/Home";
+import About from "./Components/About/About";
+import Contact from "./Components/Contact/Contact";
+import Login from "./Components/Login/Login";
+import MyNavbar from "./Components/Navbar/MyNavbar";
+import {NotLoggedRoute} from "./Components/Routes/NotLoggedRoute";
+import {PrivateRoute} from "./Components/Routes/PrivateRoute";
+import {AuthContext} from "./Components/Context/UserContextAuth";
 
 function App() {
 

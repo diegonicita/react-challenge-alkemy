@@ -1,7 +1,7 @@
 import CardItem from './CardItem';
 import Row from "react-bootstrap/Row";
 import { useContext } from "react";
-import { DataContext} from "./DataContext";
+import { DataContext} from "../Context/DataContext";
 
 export default function CardsList() {  
  const { total, health, time } = useContext(DataContext);  

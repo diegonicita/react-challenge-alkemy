@@ -2,10 +2,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { DataContext} from "./DataContext";
+import { DataContext} from "../Context/DataContext";
 import "./Home.css";
-import Dish from "./Dish";
-import CardsList from "./CardsList";
+import Dish from "../../Dish";
+import CardsList from "../Cards/CardsList";
 import { useReducer, useEffect } from "react";
 
 const initialState = {
