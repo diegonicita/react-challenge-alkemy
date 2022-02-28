@@ -133,13 +133,13 @@ function Home() {
             </Col>
           </Row>
           <Row>
-            {platos.map((item, index) => {
+            {(platos.length>0)?(platos.map((item, index) => {
               return (
                 <Col sm key={new Date() + 100 + index}>
                   <Dish {...item} key={new Date() + index} />
                 </Col>
               );
-            })}
+            })):(<div style={{ fontSize: "2rem", width: "30rem", margin: "0 auto", marginBottom: "1rem" }}>No se encontraron platos</div>)}
           </Row>
           {/* <Cards data={initialStateData}/> */}          
         </Container>
