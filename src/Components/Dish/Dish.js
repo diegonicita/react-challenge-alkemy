@@ -12,6 +12,7 @@ function Dish({ id, title, description, image, price, time, health }) {
     <Card style={{ width: "20rem", margin: "0 auto", marginBottom: "1rem" }}>
       <Card.Img variant="top" src={image} />
       <Card.Body>
+        <Card.Text>{id}</Card.Text>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{description}</Card.Text>
         <Card.Text>Price: ${price}</Card.Text>

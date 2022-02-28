@@ -64,8 +64,9 @@ function deletePlato(state, action) {
 
 function addPlato(state, action) {
   console.log("add plato " + action.data.title);
-  let newPlatos = [ ...state.platos, action.data ];
-  // console.log(newPlatos);
+  const ids = state.platos.map(p => p.id);    
+  action.data.id = Math.max(...ids) + 1;      
+  let newPlatos = [ ...state.platos, action.data ];  
   return {
     ...state,
     platos: newPlatos,
