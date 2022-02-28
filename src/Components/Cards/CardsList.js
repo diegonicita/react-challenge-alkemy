@@ -8,8 +8,8 @@ export default function CardsList() {
   return (      
     <Row>            
       <CardItem title="Precio Total a pagar: " value={total} key={new Date() + 1000} unidad="pesos"> </CardItem>      
-      <CardItem title="Health Score: " value={health} key={new Date() + 1001} unidad="health score"> </CardItem>
-      <CardItem title="Tiempo de Preparacion: " value={time} key={new Date() + 1002} unidad="min"> </CardItem>      
+      <CardItem title="Health-Score Promedio: " value={health} key={new Date() + 1001} unidad="health score"> </CardItem>
+      <CardItem title="Tiempo Promedio de Preparacion: " value={time} key={new Date() + 1002} unidad="min"> </CardItem>      
     </Row>    
   );
 }
