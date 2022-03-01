@@ -63,12 +63,12 @@ function App() {
           <Route
             path="login"
             element={
-              <NotLoggedRoute>
+              // <NotLoggedRoute>
                 <Login
                   apiTokenHandler={handleApiToken}
                   userHandler={handleUser}                  
                 />
-              </NotLoggedRoute>
+              // </NotLoggedRoute>
             }
           />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />

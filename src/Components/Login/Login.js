@@ -37,7 +37,7 @@ function Login(props) {
           password: values.password,
         },
       })
-      setIsLoading(false);           
+      // setIsLoading(false);           
     } catch (error) {
       console.warn(error.response.status);
       console.warn("error", "Acceso no autorizado");
@@ -57,9 +57,9 @@ function Login(props) {
      props.apiTokenHandler(response.data.token);
      props.userHandler(values.correo);
      setValues({ password: "", correo: "" });
-     setErrors({ password: "invisible", correo: "invisible" });
-     navigate("/", { replace: true });
+     setErrors({ password: "invisible", correo: "invisible" });    
      setIsLoading(false);
+     navigate("/", { replace: true });
     }
       
   }
@@ -67,6 +67,7 @@ function Login(props) {
   useEffect(() => {
     if (isLoading) {
       myFetch();
+      console.log("useEffect");
     }        
   }, [isLoading]);
 

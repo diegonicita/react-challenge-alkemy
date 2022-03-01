@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 async function fetchDishesJSON() {
   try {
     let [item1, item2, item3, item4] = await Promise.all([
-      fetch("https://api.spoonacular.com/recipes/1000/information"),
-      fetch("https://api.spoonacular.com/recipes/1001/information"),
-      fetch("https://api.spoonacular.com/recipes/1002/information"),
-      fetch("https://api.spoonacular.com/recipes/1003/information"),
+      fetch("https://api.spoonacular.com/recipes/1000/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
+      fetch("https://api.spoonacular.com/recipes/1001/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
+      fetch("https://api.spoonacular.com/recipes/1002/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
+      fetch("https://api.spoonacular.com/recipes/1003/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
     ]);
 
     const recipes = [
