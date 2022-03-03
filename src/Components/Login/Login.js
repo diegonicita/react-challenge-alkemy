@@ -26,8 +26,10 @@ function Login(props) {
     };
   };
 
+  const controller = new AbortController();
+
   async function myFetch() {
-    let response = null;
+    let response = null;    
     try {
       response = await axios({
         method: "post",
@@ -36,7 +38,7 @@ function Login(props) {
           email: values.correo,
           password: values.password,
         },
-      })
+      }, {signal: controller.signal})
       // setIsLoading(false);           
     } catch (error) {
       console.warn(error.response.status);
@@ -68,7 +70,13 @@ function Login(props) {
     if (isLoading) {
       myFetch();
       console.log("useEffect");
-    }        
+    }    
+    
+    return function cleanup() {
+      console.log("Cancel Clean Effect")
+      controller.abort();
+    };
+
   }, [isLoading]);
 
   const submitForm = () => {
