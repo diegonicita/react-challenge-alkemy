@@ -49,13 +49,7 @@ function Login(props) {
     } 
 
     if (response != null)
-    {
-     // console.log(response.status);
-     //console.log(response.statusText);
-     // console.log(response.headers);
-     // console.log(response.config);
-     // console.log(response.data.token);
-
+    {    
      props.apiTokenHandler(response.data.token);
      props.userHandler(values.correo);
      setValues({ password: "", correo: "" });

@@ -5,70 +5,72 @@ import Col from "react-bootstrap/Col";
 import { DataContext } from "../Context/DataContext";
 import "./Home.css";
 import Dish from "../Dish/Dish";
-import CardsList from "../Cards/CardsList";
-import { useReducer, useEffect } from "react";
+import CardsList from "../CardsList/CardsList";
+import { useReducer, useEffect, useState } from "react";
 import reducer from "./HomeReducer.js";
-import HomeFetch from "./HomeFetch.js";
-
-const initialState = {
-  platos: [
-    {
-      id: 1,
-      title: "First Dish",
-      image: "platillo001.jpeg",
-      description: "none",
-      price: 10,
-      health: 2,
-      time: 10,
-    },
-    {
-      id: 2,
-      title: "Second Dish",
-      image: "platillo001.jpeg",
-      description: "none",
-      price: 50,
-      health: 3,
-      time: 15,
-    },
-    {
-      id: 3,
-      title: "Third Dish",
-      image: "platillo001.jpeg",
-      description: "none",
-      price: 200,
-      health: 4,
-      time: 25,
-    },
-    {
-      id: 4,
-      title: "Forth Dish",
-      image: "platillo001.jpeg",
-      description: "none",
-      price: 400,
-      health: 12,
-      time: 45,
-    },
-  ],
-  total: 260,
-  health: 9,
-  time: 50,
-};
+import recipes from "./recipes.js"
 
 function Home() {
+
   const [{ platos, total, health, time }, dispatch] = useReducer(
-    reducer,
-    initialState
+    reducer, []
   );
 
+  const [recipesFetched, setRecipesFetched] = useState({recipes: [], isFetching: false});
+
   useEffect(() => {
-    dispatch({ type: "init" });
+    // dispatch({ type: "init" });
+    const fetchRecipes = async() => {
+      try {
+    
+        setRecipesFetched({recipes: [], isFetching: true});
+    
+        // let [recipe1, recipe2, recipe3, recipe4] = await Promise.all([
+        //   fetch("https://api.spoonacular.com/recipes/1000/information?apiKey=982dbb59956d442983181d47be5b7349"),
+        //   fetch("https://api.spoonacular.com/recipes/1001/information?apiKey=982dbb59956d442983181d47be5b7349"),
+        //   fetch("https://api.spoonacular.com/recipes/1002/information?apiKey=982dbb59956d442983181d47be5b7349"),
+        //   fetch("https://api.spoonacular.com/recipes/1003/information?apiKey=982dbb59956d442983181d47be5b7349"),
+        // ]);
+        // const recipesFetched = [await recipe1.json(), await recipe2.json(), await recipe3.json(), await recipe4.json(),
+        // ];
+
+        // const newRecipe = recipesFetched = ...
+
+        const newRecipes = recipes.map(
+          ({id, title, servings, image, readyInMinutes, vegan, healthScore, pricePerServing}) => 
+              {
+              return { id, title, servings, image, readyInMinutes, vegan, healthScore, pricePerServing };
+              }
+          );
+        
+        console.log(newRecipes);
+
+        setRecipesFetched({recipes: newRecipes, isFetching: false});
+        recipes.forEach( item => dispatch({
+                   type: "addPlato",
+                   data: {
+                     id: item.id,
+                     title: item.title,
+                     image: item.image,
+                     description: "none",
+                     price: 10,
+                     health: 2,
+                     time: 10,
+                   }
+                 }))
+      } catch (e) {
+        console.log(e);
+        setRecipesFetched({recipes: [], isFetching: false});
+      }
+    }
+    fetchRecipes();
   }, []);
 
   return (
     <DataContext.Provider value={{ total, health, time, dispatch }}>
       <div className="home_body">
         <Container fluid>
-          <HomeFetch />
+          {/* <HomeFetch /> */}
           <Row>
             <Col sm={8} className="invisible">
               invisible
@@ -81,7 +83,7 @@ function Home() {
             </Col>
           </Row>
           <Row>
-            {platos.length > 0 ? (
+            {platos && platos.length > 0 ? (
               platos.map((item, index) => {
                 return (
                   <Col sm key={new Date() + 100 + index}>

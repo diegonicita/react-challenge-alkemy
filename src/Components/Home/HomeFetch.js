@@ -1,62 +1,55 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
+// import { useContext } from "react";
+// import { DataContext } from "../Context/DataContext";
 
-async function fetchDishesJSON() {
-  try {
-    let [item1, item2, item3, item4] = await Promise.all([
-      fetch("https://api.spoonacular.com/recipes/1000/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
-      fetch("https://api.spoonacular.com/recipes/1001/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
-      fetch("https://api.spoonacular.com/recipes/1002/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
-      fetch("https://api.spoonacular.com/recipes/1003/information?apiKey=20244d4802e44db1b567c2ff9b47a905"),
-    ]);
+// const fetchRecipes = async() => {
+//   try {
+//     let [recipe1, recipe2, recipe3, recipe4] = await Promise.all([
+//       fetch("https://api.spoonacular.com/recipes/1000/information?apiKey=982dbb59956d442983181d47be5b7349"),
+//       fetch("https://api.spoonacular.com/recipes/1001/information?apiKey=982dbb59956d442983181d47be5b7349"),
+//       fetch("https://api.spoonacular.com/recipes/1002/information?apiKey=982dbb59956d442983181d47be5b7349"),
+//       fetch("https://api.spoonacular.com/recipes/1003/information?apiKey=982dbb59956d442983181d47be5b7349"),
+//     ]);
+//     const recipesFetched = [await recipe1.json(), await recipe2.json(), await recipe3.json(), await recipe4.json(),
+//     ];
+//     const recipes = recipesFetched.map(
+//       ({id, title, servings, image, readyInMinutes, vegan, healthScore, pricePerServing}) => 
+//           {
+//           return { id, title, servings, image, readyInMinutes, vegan, healthScore, pricePerServing };
+//           }
+//       );
+//     return recipes;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
-    const recipes = [
-      await item1.json(),
-      await item2.json(),
-      await item3.json(),
-      await item4.json(),
-    ];
+// function HomeFetch() {
+//   const [isFetching, setIsFetching] = useState(true);
+//   const { dispatch } = useContext(DataContext);  
 
-    const newRecipes = recipes.map(
-      ({
-        id,
-        title,
-        servings,
-        image,
-        readyInMinutes,
-        vegan,
-        healthScore,
-        pricePerServing,
-      }) => {
-        return {
-          id,
-          title,
-          servings,
-          image,
-          readyInMinutes,
-          vegan,
-          healthScore,
-          pricePerServing,
-        };
-      }
-    );
-    return newRecipes;
-  } catch (e) {
-    console.log(e);
-  }
-}
+//   useEffect(() => {
+    
+//     fetchDishesJSON().then((res) => {
+//       console.log(res);
+//       sessionStorage.setItem("data", JSON.stringify(res));
+//       setIsFetching(false);
+//       res.forEach( item => dispatch({
+//         type: "addPlato",
+//         data: {
+//           title: item.title,
+//           image: item.image,
+//           description: "none",
+//           price: 10,
+//           health: 2,
+//           time: 10,
+//         }
+//       }))
+      
+//     });
+//   }, []);
 
-function HomeFetch() {
-  const [isFetching, setIsFetching] = useState(true);
+//   return <></>;
+// }
 
-  useEffect(() => {
-    fetchDishesJSON().then((res) => {
-      console.log(res);
-      sessionStorage.setItem("data", JSON.stringify(res));
-      setIsFetching(false);
-    });
-  }, []);
-
-  return <></>;
-}
-
-export default HomeFetch;
+// export default HomeFetch;
