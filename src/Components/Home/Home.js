@@ -5,10 +5,10 @@ import Col from "react-bootstrap/Col";
 import { DataContext } from "../Context/DataContext";
 import "./Home.css";
 import Dish from "../Dish/Dish";
-import CardsList from "../CardsList/CardsList";
+import Cards from "../Cards/Cards";
 import { useReducer, useEffect, useState } from "react";
 import reducer from "./HomeReducer.js";
-import recipesHardCoded from "./recipes.js";
+import recipesHardCoded from "./recipesHardCoded.js";
 
 function Home() {
   // almacena los datos de las recetas y las cards (precio total, health score y tiempo de preparacion //
@@ -19,14 +19,13 @@ function Home() {
 
   useEffect(() => {
     // flag para habilitar o no la llamda a la API (para no agotar las llamadas/dia durante los test)
-    let callApi = true;
+    let callApi = false;
     // para almacenar las recetas traidas de la API.
     // En otra variable, recipesHardCoded, estan las recetas hardcodeadas.
     let recipesFetched = undefined;
 
     // dispatch({ type: "init" });
-    const fetchRecipes = async () => {
-      console.log("Run");
+    const fetchRecipes = async () => {      
 
       try {
         // obtener datos de la API si callAPI es true sino obtener los datos hardcodeados //
@@ -57,14 +56,14 @@ function Home() {
 
         console.log("fetch data: " + recipesFetched);
         console.log("hardcoded data: " + recipesHardCoded);
-        console.log(recipesFetched[0].code);
+        // console.log(recipesFetched[0].code);
 
         // si fallo el fetch, es decir, recipesFetched code != 400 use recipesHardCoded en su lugar
-        const r =
-          recipesFetched[0].code == 400 &&
-          recipesFetched[1].code == 400 &&
-          recipesFetched[2].code == 400 &&
-          recipesFetched[3].code == 400
+        const r = (recipesFetched &&
+          recipesFetched[0].code === 400 &&
+          recipesFetched[1].code === 400 &&
+          recipesFetched[2].code === 400 &&
+          recipesFetched[3].code === 400)
             ? recipesFetched
             : recipesHardCoded;
         // extrae y almacena en newRecipes los datos que mapeamos de r //
@@ -122,7 +121,7 @@ function Home() {
               invisible
             </Col>
           </Row>
-          <CardsList />
+          <Cards />
           <Row>
             <Col sm={8} className="invisible">
               invisible
