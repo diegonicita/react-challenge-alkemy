@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 import { useState, useEffect } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -97,7 +98,7 @@ function Login(props) {
     <React.Fragment>
       <div className="login_body text-center">
         <Container className="login_form_container">
-          <Form className="w-50">
+          <Form className="w-50 shadow p-3 mb-5 bg-white rounded">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="fw-bold text-black">
                 Correo Electronico:
