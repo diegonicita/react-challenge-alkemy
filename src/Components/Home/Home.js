@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import { DataContext } from "../Context/DataContext";
 import "./Home.css";
 import Dish from "../Dish/Dish";
-import Cards from "../Cards/Cards";
+import MyCards from "../Cards/MyCards";
 import { useReducer, useEffect, useState } from "react";
 import reducer from "./HomeReducer.js";
 import recipesHardCoded from "./recipesHardCoded.js";
@@ -121,7 +121,7 @@ function Home() {
               invisible
             </Col>
           </Row>
-          <Cards />
+          <MyCards />
           <Row>
             <Col sm={8} className="invisible">
               invisible
