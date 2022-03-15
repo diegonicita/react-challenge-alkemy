@@ -8,61 +8,107 @@ import Dish from "../Dish/Dish";
 import CardsList from "../CardsList/CardsList";
 import { useReducer, useEffect, useState } from "react";
 import reducer from "./HomeReducer.js";
-import recipes from "./recipes.js"
+import recipesHardCoded from "./recipes.js";
 
 function Home() {
+  // almacena los datos de las recetas y las cards (precio total, health score y tiempo de preparacion //
+  const [{ platos, total, health, time }, dispatch] = useReducer(reducer, []);
 
-  const [{ platos, total, health, time }, dispatch] = useReducer(
-    reducer, []
-  );
-
-  const [recipesFetched, setRecipesFetched] = useState({recipes: [], isFetching: false});
+  // para saber si se esta realizando el fetching //
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    // flag para habilitar o no la llamda a la API (para no agotar las llamadas/dia durante los test)
+    let callApi = true;
+    // para almacenar las recetas traidas de la API.
+    // En otra variable, recipesHardCoded, estan las recetas hardcodeadas.
+    let recipesFetched = undefined;
+
     // dispatch({ type: "init" });
-    const fetchRecipes = async() => {
+    const fetchRecipes = async () => {
+      console.log("Run");
+
       try {
-    
-        setRecipesFetched({recipes: [], isFetching: true});
-    
-        // let [recipe1, recipe2, recipe3, recipe4] = await Promise.all([
-        //   fetch("https://api.spoonacular.com/recipes/1000/information?apiKey=982dbb59956d442983181d47be5b7349"),
-        //   fetch("https://api.spoonacular.com/recipes/1001/information?apiKey=982dbb59956d442983181d47be5b7349"),
-        //   fetch("https://api.spoonacular.com/recipes/1002/information?apiKey=982dbb59956d442983181d47be5b7349"),
-        //   fetch("https://api.spoonacular.com/recipes/1003/information?apiKey=982dbb59956d442983181d47be5b7349"),
-        // ]);
-        // const recipesFetched = [await recipe1.json(), await recipe2.json(), await recipe3.json(), await recipe4.json(),
-        // ];
+        // obtener datos de la API si callAPI es true sino obtener los datos hardcodeados //
+        if (callApi) {
+          setIsFetching(true);
+          let [recipe1, recipe2, recipe3, recipe4] = await Promise.all([
+            fetch(
+              "https://api.spoonacular.com/recipes/1000/information?apiKey=982dbb59956d442983181d47be5b7349"
+            ),
+            fetch(
+              "https://api.spoonacular.com/recipes/1001/information?apiKey=982dbb59956d442983181d47be5b7349"
+            ),
+            fetch(
+              "https://api.spoonacular.com/recipes/1002/information?apiKey=982dbb59956d442983181d47be5b7349"
+            ),
+            fetch(
+              "https://api.spoonacular.com/recipes/1003/information?apiKey=982dbb59956d442983181d47be5b7349"
+            ),
+          ]);
+          recipesFetched = [
+            await recipe1.json(),
+            await recipe2.json(),
+            await recipe3.json(),
+            await recipe4.json(),
+          ];
+          setIsFetching(false);
+        }
 
-        // const newRecipe = recipesFetched = ...
+        console.log("fetch data: " + recipesFetched);
+        console.log("hardcoded data: " + recipesHardCoded);
+        console.log(recipesFetched[0].code);
 
-        const newRecipes = recipes.map(
-          ({id, title, servings, image, readyInMinutes, vegan, healthScore, pricePerServing}) => 
-              {
-              return { id, title, servings, image, readyInMinutes, vegan, healthScore, pricePerServing };
-              }
-          );
-        
-        console.log(newRecipes);
-
-        setRecipesFetched({recipes: newRecipes, isFetching: false});
-        recipes.forEach( item => dispatch({
-                   type: "addPlato",
-                   data: {
-                     id: item.id,
-                     title: item.title,
-                     image: item.image,
-                     description: "none",
-                     price: 10,
-                     health: 2,
-                     time: 10,
-                   }
-                 }))
+        // si fallo el fetch, es decir, recipesFetched code != 400 use recipesHardCoded en su lugar
+        const r =
+          recipesFetched[0].code == 400 &&
+          recipesFetched[1].code == 400 &&
+          recipesFetched[2].code == 400 &&
+          recipesFetched[3].code == 400
+            ? recipesFetched
+            : recipesHardCoded;
+        // extrae y almacena en newRecipes los datos que mapeamos de r //
+        const newRecipes = r.map(
+          ({
+            id,
+            title,
+            servings,
+            image,
+            readyInMinutes,
+            vegan,
+            healthScore,
+            pricePerServing,
+          }) => {
+            return {
+              id,
+              title,
+              servings,
+              image,
+              readyInMinutes,
+              vegan,
+              healthScore,
+              pricePerServing,
+            };
+          }
+        );
+        newRecipes.forEach((item) =>
+          dispatch({
+            type: "addPlato",
+            data: {
+              id: item.id,
+              title: item.title,
+              image: item.image,
+              description: "noness",
+              price: 10,
+              health: 2,
+              time: 10,
+            },
+          })
+        );
       } catch (e) {
         console.log(e);
-        setRecipesFetched({recipes: [], isFetching: false});
       }
-    }
+    };
     fetchRecipes();
   }, []);
 
@@ -82,7 +128,23 @@ function Home() {
               invisible
             </Col>
           </Row>
-          <Row>
+          {isFetching ? (
+            <Row>
+              <div
+                style={{
+                  fontSize: "2rem",
+                  width: "30rem",
+                  margin: "0 auto",
+                  marginBottom: "1rem",
+                }}
+              >
+                Conectandose a la API...
+              </div>
+            </Row>
+          ) : (
+            ""
+          )}
+          <Row>          
             {platos && platos.length > 0 ? (
               platos.map((item, index) => {
                 return (
@@ -100,7 +162,7 @@ function Home() {
                   marginBottom: "1rem",
                 }}
               >
-                No se encontraron platos
+               {isFetching?"":"No se encontraron platos"}
               </div>
             )}
           </Row>
