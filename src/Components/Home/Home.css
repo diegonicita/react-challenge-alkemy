@@ -1,6 +1,6 @@
 .home_body {
-    width: 100vw; 
-    height: 100vh;   
+    width: auto; 
+    height: auto;   
     background: url("/public/celebration-white.jpg") fixed center;
     background-size: cover;
     user-select: none;
