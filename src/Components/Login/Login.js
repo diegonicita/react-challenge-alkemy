@@ -4,30 +4,39 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import Casillero from "./Casillero";
+import reducer from "./LoginReducer.js";
 
 const axios = require("axios");
 const API = process.env.REACT_APP_API || "http://challenge-react.alkemy.org/";
 
 function Login(props) {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [values, setValues] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({
-    email: "invisible",
-    password: "invisible",
-  });
-
+ 
+  // const [isLoading, setIsLoading] = React.useState(false);
+  // const [values, setValues] = useState({ email: "", password: "" });
+  // const [errors, setErrors] = useState({
+  //   email: "invisible",
+  //   password: "invisible",
+  // });
   const navigate = useNavigate();
+  // const set = (name) => {
+  //   return ({ target: { value } }) => {
+  //     setValues((oldValues) => ({ ...oldValues, [name]: value }));
+  //   };
+  // };
 
-  const set = (name) => {
-    return ({ target: { value } }) => {
-      setValues((oldValues) => ({ ...oldValues, [name]: value }));
-    };
-  };
-
+  const [loginData, dispatchLogin] = useReducer(reducer, 
+    {
+      inputData: [
+        { name: "email", value: "", error: "invisible" },
+        { name: "password", value: "", error: "invisible" },
+      ],
+      isLoading: false,
+    },
+  );  
   const controller = new AbortController();
 
   async function myFetch() {
@@ -38,8 +47,8 @@ function Login(props) {
           method: "post",
           url: API,
           data: {
-            email: values.email,
-            password: values.password,
+            email: loginData.inputData[0].value,
+            password: loginData.inputData[1].value,
           },
         },
         { signal: controller.signal }
@@ -50,21 +59,23 @@ function Login(props) {
       console.warn("error", "Acceso no autorizado");
       alert("acceso no autorizado");
       // console.log(response.statusText);
-      setIsLoading(false);
+      dispatchLogin({type: 'SET_ISLOADING_FALSE'});
     }
 
     if (response != null) {
       props.apiTokenHandler(response.data.token);
-      props.userHandler(values.email);
-      setValues({ password: "", email: "" });
-      setErrors({ password: "invisible", email: "invisible" });
-      setIsLoading(false);
+      props.userHandler(loginData.inputData[0].value);
+      // dispatchLogin({type: 'INIT'});
+      // setValues({ password: "", email: "" });
+      // setErrors({ password: "invisible", email: "invisible" });
+      // setIsLoading(false);
       navigate("/", { replace: true });
     }
   }
 
   useEffect(() => {
-    if (isLoading) {
+    if (loginData.isLoading) {
+      console.log("fetch data");
       myFetch();
       console.log("useEffect");
     }
@@ -73,26 +84,29 @@ function Login(props) {
       console.log("Cancel Clean Effect");
       controller.abort();
     };
-  }, [isLoading]);
+  }, [loginData.isLoading]);
 
   const submitForm = () => {
-    if (values.email == "")
-      setErrors((oldValues) => ({
-        ...oldValues,
-        email: "text-danger visible fw-bold",
-      }));
-    else {
-      setErrors((oldValues) => ({ ...oldValues, email: "invisible" }));
-    }
-    if (values.password == "")
-      setErrors((oldValues) => ({
-        ...oldValues,
-        password: "text-danger visible fw-bold",
-      }));
-    else {
-      setErrors((oldValues) => ({ ...oldValues, password: "invisible" }));
-    }
-    if (values.password != "" && values.email != "") setIsLoading(true);
+
+    dispatchLogin({type: 'SET_ISLOADING_TRUE'});
+
+    // if (values.email == "")
+    //   setErrors((oldValues) => ({
+    //     ...oldValues,
+    //     email: "text-danger visible fw-bold",
+    //   }));
+    // else {
+    //   setErrors((oldValues) => ({ ...oldValues, email: "invisible" }));
+    // }
+    // if (values.password == "")
+    //   setErrors((oldValues) => ({
+    //     ...oldValues,
+    //     password: "text-danger visible fw-bold",
+    //   }));
+    // else {
+    //   setErrors((oldValues) => ({ ...oldValues, password: "invisible" }));
+    // }
+    // if (values.password != "" && values.email != "") setIsLoading(true);
   };
 
   return (
@@ -102,33 +116,33 @@ function Login(props) {
         <Container className="login_form_container">
           <Form className="w-50 shadow p-3 mb-5 bg-white rounded">
             <Casillero
-              key={100000}
+              key="1"
               texto="correo electronico"
               tipo="email"
-              value={values.email}
-              error={errors.email}
-              set={set}
+              value={loginData.inputData[0].value}
+              error={loginData.inputData[0].error}
+              dispatch={dispatchLogin}
             />
             <Casillero
-              key={100001}
+              key="2"
               texto="contraseña"
               tipo="password"
-              value={values.password}
-              error={errors.password}
-              set={set}
+              value={loginData.inputData[1].value}
+              error={loginData.inputData[1].error}
+              dispatch={dispatchLogin}
             />
             <Button
               variant="primary"
               size="lg"
-              disabled={isLoading}
-              onClick={!isLoading ? submitForm : null}
+              disabled={loginData.isLoading}
+              onClick={!loginData.isLoading ? submitForm : null}
             >
               Enviar
             </Button>
             <br></br>
             <Form.Group>
               <Form.Text>
-                {isLoading
+                {loginData.isLoading
                   ? "   Autenticando..."
                   : "Tranquilo, nunca compartiremos tus datos "}
               </Form.Text>

@@ -5,7 +5,7 @@ const Casillero = ({
   texto,
   value,
   error,
-  set,
+  dispatch,
 }) => {
   return (
     <Form.Group className="mb-3" controlId={"form" + tipo}>
@@ -14,7 +14,7 @@ const Casillero = ({
         type={tipo}
         placeholder={texto}
         value={value}
-        onChange={set(tipo)}
+        onChange={ e => dispatch({type: tipo, payload: e.target.value})}
         autoComplete="off"
       />
       <Form.Text className={error}>
