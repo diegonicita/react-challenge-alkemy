@@ -54,8 +54,8 @@ function Home() {
           setIsFetching(false);
         }
 
-        console.log("fetch data: " + recipesFetched);
-        console.log("hardcoded data: " + recipesHardCoded);
+        // console.log("fetch data: " + recipesFetched);
+        // console.log("hardcoded data: " + recipesHardCoded);
         // console.log(recipesFetched[0].code);
 
         // si fallo el fetch, es decir, recipesFetched code != 400 use recipesHardCoded en su lugar

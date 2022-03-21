@@ -14,7 +14,7 @@ const Casillero = ({
         type={tipo}
         placeholder={texto}
         value={value}
-        onChange={ e => dispatch({type: tipo, payload: e.target.value})}
+        onChange={ e => dispatch({type: "LOGIN_UPDATE", payload: {value: e.target.value, tipo: tipo}})}
         autoComplete="off"
       />
       <Form.Text className={error}>

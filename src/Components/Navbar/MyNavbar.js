@@ -6,13 +6,14 @@ import Container from "react-bootstrap/Container";
 import { AuthContext } from "../Context/UserContextAuth";
 import { useContext } from "react";
 
-function MyNavbar() {
+function MyNavbar({saveUserEmail, saveApiToken}) {
 
-const { user, apiToken, handleUser } = useContext(AuthContext);
+const { user, apiToken } = useContext(AuthContext);
 
-function handleClick ()
+function handleLogoutClick ()
   {
-    handleUser(null);
+    saveUserEmail(null);
+    saveApiToken(null);
   }
 
   return (
@@ -24,7 +25,7 @@ function handleClick ()
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/contact">Contact</Nav.Link>
           {!user?<Nav.Link href="/login">Login</Nav.Link>:""}
-          {!user?"":<Nav.Link href="#" onClick={handleClick}>Logout</Nav.Link>}
+          {!user?"":<Nav.Link href="#" onClick={handleLogoutClick}>Logout</Nav.Link>}
         </Nav>
       </Container>
     </Navbar>

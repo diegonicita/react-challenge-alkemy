@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem("token", JSON.stringify(apiToken));
   }, [apiToken]);
-  const handleApiToken = (token) => {
+  const saveApiToken = (token) => {
     setApiToken(token);
   };
 
@@ -27,14 +27,14 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem("user", JSON.stringify(user));
   }, [user]);
-  const handleUser = (user) => {
+  const saveUserEmail = (user) => {
     setUser(user);
   };  
 
   return (
     <React.Fragment>
-      <AuthContext.Provider value={{ user, apiToken, handleUser}}>
-        <MyNavbar />
+      <AuthContext.Provider value={{ user, apiToken}}>
+        <MyNavbar saveUserEmail={saveUserEmail} saveApiToken={saveApiToken}/>
         <Routes>
           <Route
             path="/"
@@ -65,8 +65,8 @@ function App() {
             element={
                <NotLoggedRoute>
                 <Login
-                  apiTokenHandler={handleApiToken}
-                  userHandler={handleUser}                  
+                  saveApiToken={saveApiToken}
+                  saveUserEmail={saveUserEmail}                  
                 />
                </NotLoggedRoute>
             }

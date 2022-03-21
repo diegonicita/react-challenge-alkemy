@@ -1,52 +1,50 @@
-function updateEmail(state, value) {
+const EMAIL = 0;
+const PASSWORD = 1;
+var inputType = {
+  email: 0,
+  password: 1,
+};
+
+function updateCasillero(state, action) {
   const newState = {
     ...state,
   };
-  newState.inputData[0].value = value;
-  console.log(newState.inputData[0].value);
+  // value del casillero (input)
+  const value = action.payload.value;
+  // identificador del input: 0 es email y 1 es password
+  const tipo = inputType[action.payload.tipo];
+  // guarda el value
+  newState.data[tipo].value = value;
+  // guarda el estilo del mensaje de error
+  newState.data[tipo].errorStyle = newState.data[tipo].value.length
+    ? "invisible"
+    : "text-danger visible fw-bold";
+  // chequea si existe un error: si no son ambos invisibles hay un error
+  newState.isError = !(
+    newState.data[EMAIL].errorStyle == "invisible" &&
+    newState.data[PASSWORD].errorStyle == "invisible"
+  );  
   return newState;
-}
-
-function updatePassword(state, value) {
-  const newState = {
-    ...state,
-  };
-  newState.inputData[1].value = value;
-  console.log(newState.inputData[1].value);
-  return newState;
-}
-
-function reduceData(state) {
-  return {
-    ...state,
-  };
 }
 
 function setIsLoading(state, value) {
   const newState = {
     ...state,
   };
-  newState.isLoading = value;
-  console.log(value);
+  newState.isLoading = value;  
   return newState;
 }
 
 function reducer(state, action) {
   let newState;
   switch (action.type) {
-    case "INIT":
-      newState = reduceData(state);
+    case "LOGIN_UPDATE":
+      newState = updateCasillero(state, action);
       return newState;
-    case "email":
-      newState = updateEmail(state, action.payload);
-      return newState;
-    case "password":
-      newState = updatePassword(state, action.payload);
-      return newState;
-    case "SET_ISLOADING_TRUE":
+    case "LOGIN_START":
       newState = setIsLoading(state, true);
       return newState;
-    case "SET_ISLOADING_FALSE":
+    case "LOGIN_END":
       newState = setIsLoading(state, false);
       return newState;
     default:
