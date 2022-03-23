@@ -8,6 +8,8 @@ import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import Casillero from "./Casillero";
 import reducer from "./LoginReducer.js";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const axios = require("axios");
 const API = process.env.REACT_APP_API || "http://challenge-react.alkemy.org/";
@@ -16,7 +18,9 @@ const EMAIL = 0;
 const PASSWORD = 1;
 
 function Login({ saveApiToken, saveUserEmail }) {
+  
   const navigate = useNavigate();
+  const mySwal = withReactContent(Swal)
 
   // loginData contiene:
   // data: contiene el value de los inputs y los stilos de los label de error,
@@ -53,26 +57,62 @@ function Login({ saveApiToken, saveUserEmail }) {
       );
     } catch (error) {
       // respuesta de la API con errores //
-      alert("acceso no autorizado");
+      mySwal.fire({    
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger mr-2'
+        },    
+        icon: 'error',        
+        title: 'Lo siento...',
+        text: 'e-mail y/o password incorrectos!',        
+        showConfirmButton: true,        
+        buttonsStyling: false
+      })
+      
+      //alert("acceso no autorizado");
       dispatchLogin({ type: "LOGIN_END" });
     }
     // respuesta de la API sin errores: guarde los datos //
     if (response != null) {
-      saveApiToken(response.data.token);
-      saveUserEmail(loginData.data[EMAIL].value);
-      dispatchLogin({ type: "LOGIN_END" });
+      mySwal.fire({        
+        icon: 'success',
+        position: 'top-end',
+        title: 'Ingresando...',        
+        timer: 1000,
+        showConfirmButton: false,
+        // footer: '<a href="">Why do I have this issue?</a>'
+      })
       // redirija el HOME //
-      navigate("/", { replace: true });
+      setTimeout(() => { 
+        saveApiToken(response.data.token);
+        saveUserEmail(loginData.data[EMAIL].value);
+        dispatchLogin({ type: "LOGIN_END" });      
+        navigate("/", { replace: true })}, 1000);     
     }
   }
 
 
   // Realice el fetch si se presiono el boton y no hay errores en los inputs //
   useEffect(() => {
+    
     if (loginData.isLoading && !loginData.isError) {
       myFetch();
     } else {
       dispatchLogin({ type: "LOGIN_END" });
+      if (loginData.isError)
+      {      
+      mySwal.fire({                
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger mr-2',          
+        }, 
+        icon: 'error',        
+        title: 'Debes completar los campos correctamente...',                
+        showConfirmButton: true,        
+        buttonsStyling: false,
+        // footer: '<a href="">Why do I have this issue?</a>'
+      })
+    }
     }
     return function cleanup() {
       console.log("Cancel Clean Effect");
@@ -96,6 +136,7 @@ function Login({ saveApiToken, saveUserEmail }) {
               tipo="email"
               value={loginData.data[EMAIL].value}
               error={loginData.data[EMAIL].errorStyle}
+              mensajeError="Debes escribir un email valido."
               dispatch={dispatchLogin}
             />
             <Casillero
@@ -104,6 +145,7 @@ function Login({ saveApiToken, saveUserEmail }) {
               tipo="password"
               value={loginData.data[PASSWORD].value}
               error={loginData.data[PASSWORD].errorStyle}
+              mensajeError="Debes escribir una contraseña valida."
               dispatch={dispatchLogin}
             />
             <Button

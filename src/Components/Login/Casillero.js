@@ -5,6 +5,7 @@ const Casillero = ({
   texto,
   value,
   error,
+  mensajeError,
   dispatch,
 }) => {
   return (
@@ -18,7 +19,7 @@ const Casillero = ({
         autoComplete="off"
       />
       <Form.Text className={error}>
-        {"Debes escribir un "+ texto}
+        {mensajeError}
       </Form.Text>
     </Form.Group>
   );

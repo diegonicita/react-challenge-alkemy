@@ -5,6 +5,11 @@ var inputType = {
   password: 1,
 };
 
+const validateEmail = (email) => {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+};
+
 function updateCasillero(state, action) {
   const newState = {
     ...state,
@@ -16,14 +21,20 @@ function updateCasillero(state, action) {
   // guarda el value
   newState.data[tipo].value = value;
   // guarda el estilo del mensaje de error
-  newState.data[tipo].errorStyle = newState.data[tipo].value.length
+  newState.data[tipo].errorStyle = (newState.data[tipo].value.length)
     ? "invisible"
     : "text-danger visible fw-bold";
+  // prueba : validando el formato del texto escrito // 
+  newState.data[EMAIL].errorStyle = (validateEmail(newState.data[EMAIL].value))
+  ? "invisible"
+  : "text-danger visible fw-bold";
   // chequea si existe un error: si no son ambos invisibles hay un error
   newState.isError = !(
     newState.data[EMAIL].errorStyle == "invisible" &&
-    newState.data[PASSWORD].errorStyle == "invisible"
-  );  
+    newState.data[PASSWORD].errorStyle == "invisible"    
+  ); 
+ 
+
   return newState;
 }
 
