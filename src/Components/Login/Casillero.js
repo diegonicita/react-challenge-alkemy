@@ -8,9 +8,15 @@ const Casillero = ({
   mensajeError,
   dispatch,
 }) => {
+
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }  
+
   return (
-    <Form.Group className="mb-1" controlId={"form" + tipo}>
-      <Form.Label className="fw-bold text-black">{texto}</Form.Label>
+    <Form.Group className="m-3" controlId={"form" + tipo}>
+      <Form.Label className="fw-bold text-black">{capitalize(texto)}</Form.Label>
       <Form.Control
         type={tipo}
         placeholder={texto}

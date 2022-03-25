@@ -40,7 +40,7 @@ function MyNavbar({ saveUserEmail, saveApiToken }) {
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">
-        {!user ? "":<Nav.Link as={NavLink} to="/" exact>Home</Nav.Link>}
+        {!user ? "":<Nav.Link as={NavLink} to="/" exact="true">Home</Nav.Link>}
         {!user ? "":<Nav.Link as={NavLink} to="/about">About</Nav.Link>}
         {!user ? "":<Nav.Link as={NavLink} to="/contact">Contact</Nav.Link>}
         <NavDropdown title="Users" id="basic-nav-dropdown">

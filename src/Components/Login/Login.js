@@ -132,7 +132,7 @@ function Login({ saveApiToken, saveUserEmail }) {
           <Row>
             <Col className="col-sm-9 col-md-7 col-lg-5 mx-auto">
               <Card className="border-0 shadow rounded-3 my-5">
-                <Form>
+                <Form className="p-3">
                   <Casillero
                     key="1"
                     texto="correo electronico"
