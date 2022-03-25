@@ -5,19 +5,20 @@ import Button from "react-bootstrap/Button";
 import { useContext } from "react";
 import { DataContext } from "../Context/DataContext";
 
-function Dish({ id, title, description, image, price, time, health }) {
+function Dish({ id, title, description, image, price, time, health, vegan }) {
   const { dispatch } = useContext(DataContext);
 
   return (
     <Card style={{ width: "20rem", margin: "0 auto", marginBottom: "1rem" }}>
       <Card.Img variant="top" src={image} />
       <Card.Body>
-        <Card.Text>{id}</Card.Text>
         <Card.Title>{title}</Card.Title>
-        <Card.Text>{description}</Card.Text>
+        <Card.Text>Codigo: {id}</Card.Text>        
+        {/* <Card.Text>{description}</Card.Text> */}
         <Card.Text>Price: ${price}</Card.Text>
-        <Card.Text>Time: {time}</Card.Text>
-        <Card.Text>Health Score: {health}</Card.Text>
+        <Card.Text>Time: {time} minutes</Card.Text>
+        <Card.Text>Health Score: {health} points</Card.Text>
+        <Card.Text>Vegan: {vegan?"Apto":"No Apto"}</Card.Text>
         <Button variant="primary">Detalles</Button>{" "}
         <Button
           variant="primary"

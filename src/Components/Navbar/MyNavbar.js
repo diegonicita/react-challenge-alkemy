@@ -34,7 +34,7 @@ function MyNavbar({ saveUserEmail, saveApiToken }) {
 
   return (
   <>
-  <Navbar bg="primary" expand="lg" variant="dark">
+  <Navbar bg="primary" expand="sm" variant="dark">
   <Container>
     <Navbar.Brand as={NavLink} to="/">Hotel California</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />

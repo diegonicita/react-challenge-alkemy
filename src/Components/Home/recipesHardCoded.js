@@ -5,7 +5,7 @@ const recipes = [
         "servings": 6,
         "image": "https://spoonacular.com/recipeImages/1000-556x370.jpg",
         "readyInMinutes": 45,
-        "vegan": false,
+        "vegan": true,
         "healthScore": 28,
         "pricePerServing": 519.62
     },
@@ -15,7 +15,7 @@ const recipes = [
         "servings": 4,
         "image": "https://spoonacular.com/recipeImages/1001-556x370.jpg",
         "readyInMinutes": 45,
-        "vegan": false,
+        "vegan": true,
         "healthScore": 37,
         "pricePerServing": 492.91
     },
@@ -45,7 +45,7 @@ const recipes = [
         "servings": 8,
         "image": "https://spoonacular.com/recipeImages/1004-556x370.jpg",
         "readyInMinutes": 105,
-        "vegan": false,
+        "vegan": true,
         "healthScore": 39,
         "pricePerServing": 639.12
     },
@@ -55,7 +55,7 @@ const recipes = [
         "servings": 4,
         "image": "https://spoonacular.com/recipeImages/1008-556x370.jpg",
         "readyInMinutes": 30,
-        "vegan": false,
+        "vegan": true,
         "healthScore": 23,
         "pricePerServing": 331.94
     },
@@ -75,7 +75,7 @@ const recipes = [
         "servings": 4,
         "image": "https://spoonacular.com/recipeImages/1007-556x370.jpg",
         "readyInMinutes": 38,
-        "vegan": false,
+        "vegan": true,
         "healthScore": 56,
         "pricePerServing": 357.98
     }

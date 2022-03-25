@@ -19,7 +19,7 @@ function MyCards() {
  const { total, health, time } = useContext(DataContext);  
   return (      
     <Row>            
-      <Item title="Precio Total a pagar: " value={total} key={new Date() + 1000} unidad="pesos"> </Item>      
+      <Item title="Precio total a pagar: " value={total} key={new Date() + 1000} unidad="pesos"> </Item>      
       <Item title="Health-Score Promedio: " value={health} key={new Date() + 1001} unidad="health score"> </Item>
       <Item title="Tiempo Promedio de Preparacion: " value={time} key={new Date() + 1002} unidad="min"> </Item>      
     </Row>    

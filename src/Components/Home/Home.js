@@ -10,6 +10,10 @@ import { useReducer, useEffect, useState } from "react";
 import reducer from "./HomeReducer.js";
 import recipesHardCoded from "./recipesHardCoded.js";
 
+let apiStart = "https://api.spoonacular.com/recipes/";
+let apiEnd = "/information?apiKey=982dbb59956d442983181d47be5b7349";
+let recipesIds = [ 1000, 1001, 1002, 1003];
+
 function Home() {
   // almacena los datos de las recetas y las cards (precio total, health score y tiempo de preparacion //
   const [{ platos, total, health, time }, dispatch] = useReducer(reducer, []);
@@ -32,18 +36,10 @@ function Home() {
         if (callApi) {
           setIsFetching(true);
           let [recipe1, recipe2, recipe3, recipe4] = await Promise.all([
-            fetch(
-              "https://api.spoonacular.com/recipes/1000/information?apiKey=982dbb59956d442983181d47be5b7349"
-            ),
-            fetch(
-              "https://api.spoonacular.com/recipes/1001/information?apiKey=982dbb59956d442983181d47be5b7349"
-            ),
-            fetch(
-              "https://api.spoonacular.com/recipes/1002/information?apiKey=982dbb59956d442983181d47be5b7349"
-            ),
-            fetch(
-              "https://api.spoonacular.com/recipes/1003/information?apiKey=982dbb59956d442983181d47be5b7349"
-            ),
+            fetch(apiStart + recipesIds[0] + apiEnd),
+            fetch(apiStart + recipesIds[1] + apiEnd),
+            fetch(apiStart + recipesIds[2] + apiEnd),
+            fetch(apiStart + recipesIds[3] + apiEnd),
           ]);
           recipesFetched = [
             await recipe1.json(),
@@ -54,19 +50,21 @@ function Home() {
           setIsFetching(false);
         }
 
-        // console.log("fetch data: " + recipesFetched);
+        console.log(recipesFetched);
+        // console.log(recipesFetched[0].code);
+        // console.log(recipesFetched[1].code);
+        // console.log(recipesFetched[2].code);
+        // console.log(recipesFetched[3].code);
+        // // console.log("fetch data: " + recipesFetched);
         // console.log("hardcoded data: " + recipesHardCoded);
         // console.log(recipesFetched[0].code);
 
         // si fallo el fetch, es decir, recipesFetched code != 400 use recipesHardCoded en su lugar
-        const r = (recipesFetched &&
-          recipesFetched[0].code === 400 &&
-          recipesFetched[1].code === 400 &&
-          recipesFetched[2].code === 400 &&
-          recipesFetched[3].code === 400)
+        const r = (recipesFetched && recipesFetched.length > 0)
             ? recipesFetched
             : recipesHardCoded;
         // extrae y almacena en newRecipes los datos que mapeamos de r //
+        console.log(r);
         const newRecipes = r.map(
           ({
             id,
@@ -98,9 +96,10 @@ function Home() {
               title: item.title,
               image: item.image,
               description: "noness",
-              price: 10,
-              health: 2,
-              time: 10,
+              price: item.pricePerServing,
+              health: item.healthScore,
+              time: item.readyInMinutes,
+              vegan: item.vegan,
             },
           })
         );
@@ -147,7 +146,7 @@ function Home() {
             {platos && platos.length > 0 ? (
               platos.map((item, index) => {
                 return (
-                  <Col sm key={new Date() + 100 + index}>
+                  <Col key={new Date() + 100 + index}>
                     <Dish {...item} key={new Date() + index} />
                   </Col>
                 );
