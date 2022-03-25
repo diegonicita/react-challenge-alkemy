@@ -9,7 +9,7 @@ const Casillero = ({
   dispatch,
 }) => {
   return (
-    <Form.Group className="mb-3" controlId={"form" + tipo}>
+    <Form.Group className="mb-1" controlId={"form" + tipo}>
       <Form.Label className="fw-bold text-black">{texto}</Form.Label>
       <Form.Control
         type={tipo}

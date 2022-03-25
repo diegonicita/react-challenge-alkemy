@@ -6,6 +6,7 @@ import About from "./Components/About/About";
 import Contact from "./Components/Contact/Contact";
 import Login from "./Components/Login/Login";
 import MyNavbar from "./Components/Navbar/MyNavbar";
+import Register from "./Components/Register/Register";
 import { NotLoggedRoute } from "./Components/Routes/NotLoggedRoute";
 import { PrivateRoute } from "./Components/Routes/PrivateRoute";
 import { AuthContext } from "./Components/Context/UserContextAuth";
@@ -39,7 +40,7 @@ function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute>
+              <PrivateRoute>                
                 <Home />
               </PrivateRoute>
             }
@@ -47,7 +48,7 @@ function App() {
           <Route
             path="about"
             element={
-              <PrivateRoute>
+              <PrivateRoute>                
                 <About />
               </PrivateRoute>
             }
@@ -55,7 +56,7 @@ function App() {
           <Route
             path="contact"
             element={
-              <PrivateRoute>
+              <PrivateRoute>                
                 <Contact />
               </PrivateRoute>
             }
@@ -63,11 +64,19 @@ function App() {
           <Route
             path="login"
             element={
-               <NotLoggedRoute>
+               <NotLoggedRoute>                
                 <Login
                   saveApiToken={saveApiToken}
                   saveUserEmail={saveUserEmail}                  
                 />
+               </NotLoggedRoute>
+            }
+          />
+          <Route
+            path="register"
+            element={
+               <NotLoggedRoute>                
+                <Register />
                </NotLoggedRoute>
             }
           />

@@ -2,12 +2,14 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import { AuthContext } from "../Context/UserContextAuth";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "./MyNavbar.css";
+import { Link, NavLink } from 'react-router-dom'
 
 function MyNavbar({ saveUserEmail, saveApiToken }) {
   const { user, apiToken } = useContext(AuthContext);
@@ -31,24 +33,28 @@ function MyNavbar({ saveUserEmail, saveApiToken }) {
   }
 
   return (
-    <Navbar bg="primary" variant="dark" className="navbar_container">
-      <Container>
-        <Navbar.Brand href="#">Hotel California</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/about">About</Nav.Link>
-          <Nav.Link href="/contact">Contact</Nav.Link>
-          {!user ? <Nav.Link href="/login">Login</Nav.Link> : ""}
-          {!user ? (
-            ""
-          ) : (
-            <Nav.Link href="#" onClick={handleLogoutClick}>
-              Logout
-            </Nav.Link>
-          )}
-        </Nav>
-      </Container>
-    </Navbar>
+  <>
+  <Navbar bg="primary" expand="lg" variant="dark">
+  <Container>
+    <Navbar.Brand as={NavLink} to="/">Hotel California</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="me-auto">
+        {!user ? "":<Nav.Link as={NavLink} to="/" exact>Home</Nav.Link>}
+        {!user ? "":<Nav.Link as={NavLink} to="/about">About</Nav.Link>}
+        {!user ? "":<Nav.Link as={NavLink} to="/contact">Contact</Nav.Link>}
+        <NavDropdown title="Users" id="basic-nav-dropdown">
+          {!user ? <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>: ""}
+          {!user ? "":<NavDropdown.Item as={Link} to="#" onClick={handleLogoutClick}>Logout</NavDropdown.Item>}
+          {!user ? <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>: ""}
+          <NavDropdown.Divider />
+          <NavDropdown.Item as={Link} to="#">Help</NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>    
+  </>
   );
 }
 
