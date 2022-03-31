@@ -6,9 +6,11 @@ import { DataContext } from "../Context/DataContext";
 import "./Home.css";
 import Dish from "../Dish/Dish";
 import MyCards from "../Cards/MyCards";
+import SearchBar from "../SearchBar/SearchBar";
 import { useReducer, useEffect, useState } from "react";
 import reducer from "./HomeReducer.js";
 import { fetchRecipes } from "./recipesHelper.js";
+import HomeMessage from "./HomeMessage";
 
 function Home() {
   // almacena los datos de las recetas y las cards (precio total, health score y tiempo de preparacion //
@@ -17,49 +19,24 @@ function Home() {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    console.log("useEffect");
     const myFetch = async () => {
-      setIsFetching(true);
-      // si flag es true usa la api y si es false = use las recetas hardcodeadas
-      // dispatch es para guardar las recetas en el reducer
-      await fetchRecipes(false, dispatch);
-      setIsFetching(false);
+      // true = usa la API
+      // dispatch = para actualizar los platos
+      // setIsFetching para el flag isFetching
+      fetchRecipes(false, dispatch, setIsFetching);
     };
-
     myFetch();
   }, []);
 
   return (
-    <DataContext.Provider value={{ total, health, time, dispatch }}>
+    <DataContext.Provider value={{ platos, total, health, time, dispatch }}>
       <div className="home_body">
-        <Container fluid>
+        <Container fluid className="py-3">
           {/* <HomeFetch /> */}
-          <Row>
-            <Col sm={8} className="invisible">
-              invisible
-            </Col>
-          </Row>
           <MyCards />
-          <Row>
-            <Col sm={8} className="invisible">
-              invisible
-            </Col>
-          </Row>
-          {isFetching ? (
-            <Row>
-              <div
-                style={{
-                  fontSize: "2rem",
-                  width: "30rem",
-                  margin: "0 auto",
-                  marginBottom: "1rem",
-                }}
-              >
-                Conectandose a la API...
-              </div>
-            </Row>
-          ) : (
-            ""
-          )}
+          <SearchBar />
+          <HomeMessage flag={isFetching} isTrue="Conectandose a la API..." isFalse=""/>
           <Row>
             {platos && platos.length > 0 ? (
               platos.map((item, index) => {
@@ -70,19 +47,9 @@ function Home() {
                 );
               })
             ) : (
-              <div
-                style={{
-                  fontSize: "2rem",
-                  width: "30rem",
-                  margin: "0 auto",
-                  marginBottom: "1rem",
-                }}
-              >
-                {isFetching ? "" : "No se encontraron platos"}
-              </div>
+              <HomeMessage flag={isFetching} isTrue="" isFalse="No se encontraron platos"/>              
             )}
           </Row>
-          {/* <Cards data={initialStateData}/> */}
         </Container>
       </div>
     </DataContext.Provider>
