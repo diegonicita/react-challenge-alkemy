@@ -1,10 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { DataContext } from "../Context/DataContext";
 import "./Home.css";
-import Dish from "../Dish/Dish";
+import Dishes from "../Dish/Dishes";
 import MyCards from "../Cards/MyCards";
 import SearchBar from "../SearchBar/SearchBar";
 import { useReducer, useEffect, useState } from "react";
@@ -37,19 +35,7 @@ function Home() {
           <MyCards />
           <SearchBar />
           <HomeMessage flag={isFetching} isTrue="Conectandose a la API..." isFalse=""/>
-          <Row>
-            {platos && platos.length > 0 ? (
-              platos.map((item, index) => {
-                return (
-                  <Col key={new Date() + 100 + index}>
-                    <Dish {...item} key={new Date() + index} />
-                  </Col>
-                );
-              })
-            ) : (
-              <HomeMessage flag={isFetching} isTrue="" isFalse="No se encontraron platos"/>              
-            )}
-          </Row>
+          <Dishes flag={isFetching} isTrue="" isFalse="No se encontraron platos" platos={platos}/>
         </Container>
       </div>
     </DataContext.Provider>

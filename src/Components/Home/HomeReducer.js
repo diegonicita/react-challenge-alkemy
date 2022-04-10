@@ -8,7 +8,7 @@
     };
   }
   
-  function addPlato(state, action) {    
+  function addPlato(state, action) { 
     let newPlatos = [action.data];
     if (state.platos)
     {
@@ -17,6 +17,22 @@
     else 
     {
     newPlatos = [ action.data ];  
+    }
+    return {
+      ...state,
+      platos: newPlatos,
+    }     
+  }
+
+  function addPlatos(state, action) {    
+    let newPlatos = [action.data];
+    if (state.platos)
+    {
+    newPlatos = [ ...state.platos, ...action.data ];  
+    }
+    else 
+    {
+    newPlatos = [ ...action.data ];  
     }
     return {
       ...state,
@@ -59,6 +75,9 @@
         return reduceData(newState);
       case "addPlato":
         newState = addPlato(state, action);
+        return reduceData(newState);
+      case "addPlatos":
+        newState = addPlatos(state, action);
         return reduceData(newState);
       default:
         throw new Error(`${action.type} is not a valid action`);

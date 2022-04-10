@@ -18,7 +18,7 @@ const submit = (e) =>
 {
     e.preventDefault();
     const listado = platos.filter( ({title}) => {const titulo = title.toLowerCase();
-                                                 return titulo.includes(searchTerm) === true});
+                                                 return titulo.includes(searchTerm.toLowerCase()) === true});
     const listadoId = listado.map( ({id}) => { return id});
     console.log(listadoId);
 }
@@ -32,8 +32,8 @@ return (
 <Container>
     <Form onSubmit={submit} className="py-3" autoComplete="off">
     <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Agregar Platos al Menu</Form.Label>
-        <Form.Control type="text" placeholder="Ingresa un plato" value={searchTerm} onChange={changeSearchTerm}/>    
+        <Form.Label>Buscar nuevos platos</Form.Label>
+        <Form.Control type="text" placeholder="Ingresa un texto" value={searchTerm} onChange={changeSearchTerm}/>    
     </Form.Group>
     <Button variant="primary" type="submit">
         Buscar

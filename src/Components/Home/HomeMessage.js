@@ -3,8 +3,8 @@ import Row from "react-bootstrap/Row";
 
 function HomeMessage(props) {
 
-    console.log('llamando a HomeMessage');
-    console.log('flag= ' + props.flag);    
+    // console.log('llamando a HomeMessage');
+    // console.log('flag= ' + props.flag);    
 return (
     <>
     {props.flag ? (

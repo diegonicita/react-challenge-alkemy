@@ -144,14 +144,21 @@ const fetchRecipes = async (flag, dispatch, setIsFetching) => {
 
     setTimeout(() => {
       setIsFetching(false);
-      newRecipes.forEach((item) =>
-        dispatch({
-          type: "addPlato",
-          data: {
-            ...item,
-          },
-        })
-      );
+
+      // newRecipes.forEach((item) =>
+      //   dispatch({
+      //     type: "addPlato",
+      //     data: {
+      //       ...item,
+      //     },
+      //   })
+      // );
+
+      dispatch({
+        type: "addPlatos",
+        data: newRecipes,
+      })
+
     }, 1000);
   } catch (e) {
     console.log(e);
