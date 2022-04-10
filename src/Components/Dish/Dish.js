@@ -22,7 +22,7 @@ function Dish({ id, title, description, image, price, time, health, vegan }) {
         <Button variant="primary">Detalles</Button>{" "}
         <Button
           variant="primary"
-          onClick={(e) => dispatch({ type: "deletePlato", id: id })}
+          onClick={(e) => dispatch({ type: "deleteDish", id: id })}
         >
           Eliminar
         </Button>{" "}
@@ -30,7 +30,7 @@ function Dish({ id, title, description, image, price, time, health, vegan }) {
           variant="primary"
           onClick={(e) =>
             dispatch({
-              type: "addPlato",
+              type: "addDish",
               data: {
                 title: "New Dish",
                 image: "platillo001.jpeg",

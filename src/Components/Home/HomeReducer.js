@@ -1,18 +1,18 @@
   
-  function deletePlato(state, action) {
+  function deleteDish(state, action) {
     console.log("delete plato " + action.id);
-    let newPlatos = state.platos.filter((item) => item.id != action.id);    
+    let newPlatos = state.dishesFound.filter((item) => item.id != action.id);    
     return {
       ...state,
-      platos: newPlatos,
+      dishesFound: newPlatos,
     };
   }
   
-  function addPlato(state, action) { 
+  function addDish(state, action) { 
     let newPlatos = [action.data];
-    if (state.platos)
+    if (state.dishesFound)
     {
-    newPlatos = [ ...state.platos, action.data ];  
+    newPlatos = [ ...state.dishesFound, action.data ];  
     }
     else 
     {
@@ -20,15 +20,15 @@
     }
     return {
       ...state,
-      platos: newPlatos,
+      dishesFound: newPlatos,
     }     
   }
 
-  function addPlatos(state, action) {    
+  function addDishes(state, action) {    
     let newPlatos = [action.data];
-    if (state.platos)
+    if (state.dishesFound)
     {
-    newPlatos = [ ...state.platos, ...action.data ];  
+    newPlatos = [ ...state.dishesFound, ...action.data ];  
     }
     else 
     {
@@ -36,16 +36,16 @@
     }
     return {
       ...state,
-      platos: newPlatos,
+      dishesFound: newPlatos,
     }     
   }
   
   function reduceData(state) {
-    if (state.platos)
+    if (state.dishesFound)
     {
-    let prices = state.platos.map((a) => a.price);
-    let times = state.platos.map((a) => a.time);
-    let healths = state.platos.map((a) => a.health);
+    let prices = state.dishesFound.map((a) => a.price);
+    let times = state.dishesFound.map((a) => a.time);
+    let healths = state.dishesFound.map((a) => a.health);
     let sumaPrices = prices.reduce((a, b) => a + b, 0);
     let sumaTime = times.reduce((a, b) => a + b, 0);
     let sumaHealth = healths.reduce((a, b) => a + b, 0);
@@ -70,14 +70,14 @@
       case "change":
         newState = reduceData(state);
         return newState;
-      case "deletePlato":
-        newState = deletePlato(state, action);
+      case "deleteDish":
+        newState = deleteDish(state, action);
         return reduceData(newState);
-      case "addPlato":
-        newState = addPlato(state, action);
+      case "addDish":
+        newState = addDish(state, action);
         return reduceData(newState);
-      case "addPlatos":
-        newState = addPlatos(state, action);
+      case "addDishes":
+        newState = addDishes(state, action);
         return reduceData(newState);
       default:
         throw new Error(`${action.type} is not a valid action`);

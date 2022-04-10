@@ -12,7 +12,7 @@ import HomeMessage from "./HomeMessage";
 
 function Home() {
   // almacena los datos de las recetas y las cards (precio total, health score y tiempo de preparacion //
-  const [{ platos, total, health, time }, dispatch] = useReducer(reducer, []);
+  const [{ dishesFound, dishesInMenu, total, health, time }, dispatch] = useReducer(reducer, []);
   // para saber si se esta realizando el fetching //
   const [isFetching, setIsFetching] = useState(false);
 
@@ -28,14 +28,14 @@ function Home() {
   }, []);
 
   return (
-    <DataContext.Provider value={{ platos, total, health, time, dispatch }}>
+    <DataContext.Provider value={{ dishesFound, total, health, time, dispatch }}>
       <div className="home_body">
         <Container fluid className="py-3">
           {/* <HomeFetch /> */}
           <MyCards />
           <SearchBar />
           <HomeMessage flag={isFetching} isTrue="Conectandose a la API..." isFalse=""/>
-          <Dishes flag={isFetching} isTrue="" isFalse="No se encontraron platos" platos={platos}/>
+          <Dishes flag={isFetching} isTrue="" isFalse="No se encontraron platos" dishesFound={dishesFound}/>
         </Container>
       </div>
     </DataContext.Provider>

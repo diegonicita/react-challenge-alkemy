@@ -155,7 +155,7 @@ const fetchRecipes = async (flag, dispatch, setIsFetching) => {
       // );
 
       dispatch({
-        type: "addPlatos",
+        type: "addDishes",
         data: newRecipes,
       })
 
