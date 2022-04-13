@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { useContext } from "react";
 import { DataContext } from "../Context/DataContext";
 
-function Dish({ id, title, description, image, price, time, health, vegan }) {
+function Dish({ id, title, description, image, price, time, health, vegan, group }) {
   const { dispatch } = useContext(DataContext);
 
   return (
@@ -19,25 +19,31 @@ function Dish({ id, title, description, image, price, time, health, vegan }) {
         <Card.Text>Time: {time} minutes</Card.Text>
         <Card.Text>Health Score: {health} points</Card.Text>
         <Card.Text>Vegan: {vegan?"Apto":"No Apto"}</Card.Text>
+        <Card.Text>Grupo: {group}</Card.Text>
         <Button variant="primary">Detalles</Button>{" "}
         <Button
           variant="primary"
           onClick={(e) => dispatch({ type: "deleteDish", id: id })}
         >
           Eliminar
-        </Button>{" "}
+        </Button>{" "}  
+
         <Button
           variant="primary"
           onClick={(e) =>
             dispatch({
               type: "addDish",
               data: {
-                title: "New Dish",
-                image: "platillo001.jpeg",
-                description: "none",
-                price: 10,
-                health: 2,
-                time: 10,
+                id: 1000 + id,
+                title: title,
+                servings: 1,
+                image: image,                
+                time: time,
+                vegan: vegan,
+                health: health,
+                price: price,
+                description: description,
+                group: "inMenu"
               },
             })
           }

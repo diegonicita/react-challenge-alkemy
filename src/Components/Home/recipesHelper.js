@@ -139,20 +139,12 @@ const fetchRecipes = async (flag, dispatch, setIsFetching) => {
         health: r.healthScore,
         price: r.pricePerServing,
         description: "noness",
+        group: "found"
       };
     });
 
     setTimeout(() => {
       setIsFetching(false);
-
-      // newRecipes.forEach((item) =>
-      //   dispatch({
-      //     type: "addPlato",
-      //     data: {
-      //       ...item,
-      //     },
-      //   })
-      // );
 
       dispatch({
         type: "addDishes",
