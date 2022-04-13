@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dish from "./Dish"
 
-function Dishes({flag, isTrue, isFalse, dishes, group}) {  
+function Dishes({title, flag, isTrue, isFalse, dishes, group, children}) {  
 
   let dishesGroup = undefined;
   if (dishes && dishes.length > 0)
@@ -14,7 +14,9 @@ function Dishes({flag, isTrue, isFalse, dishes, group}) {
   }
 
   return (
-    <Row>      
+    <Row>
+      <h3 className="text-center">{title}</h3>  
+      {children}    
       {dishesGroup && dishesGroup.length > 0 ? (
         dishesGroup.map((item, index) => {
           return (
@@ -27,7 +29,7 @@ function Dishes({flag, isTrue, isFalse, dishes, group}) {
         <HomeMessage
           flag={flag}
           isTrue=""
-          isFalse={"No se encontraron platos en " + group}
+          isFalse={"No se encontraron platos"}
         />
       )}
     </Row>

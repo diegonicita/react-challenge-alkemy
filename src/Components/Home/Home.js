@@ -32,11 +32,14 @@ function Home() {
       <div className="home_body">
         <Container fluid className="py-3">
           {/* <HomeFetch /> */}
-          <Dishes flag={isFetching} isTrue="" isFalse="No se encontraron platos" dishes={dishes} group="inMenu"/>
+          <Dishes title="Menu del dia" flag={isFetching} isTrue="" isFalse="No se encontraron platos" dishes={dishes} group="inMenu"/>
           <MyCards />
-          <SearchBar />
+          {/* <SearchBar /> */}
           <HomeMessage flag={isFetching} isTrue="Conectandose a la API..." isFalse=""/>
-          <Dishes flag={isFetching} isTrue="" isFalse="No se encontraron platos" dishes={dishes} group="found"/>
+          <Dishes title="Platos disponibles (puedes buscar mas platos)" flag={isFetching} isTrue="" isFalse="No se encontraron platos" dishes={dishes} group="found">
+            <SearchBar />
+          </Dishes>
+          
         </Container>
       </div>
     </DataContext.Provider>
