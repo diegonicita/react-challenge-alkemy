@@ -32,14 +32,37 @@ function Home() {
       <div className="home_body">
         <Container fluid className="py-3">
           {/* <HomeFetch /> */}
-          <Dishes title="Menu del dia" flag={isFetching} isTrue="" isFalse="No se encontraron platos" dishes={dishes} group="inMenu"/>
-          <MyCards />
+          <Dishes
+            title="Menu del dia"
+            flag={isFetching}
+            isTrue=""
+            isFalse="No se encontraron platos"
+            dishes={dishes}
+            group="inMenu"
+            buttonAdd="false"
+            buttonDelete="true"
+            buttonDetails="true"
+          />
+          <MyCards title="Informacion del Menu del dia" />
           {/* <SearchBar /> */}
-          <HomeMessage flag={isFetching} isTrue="Conectandose a la API..." isFalse=""/>
-          <Dishes title="Platos disponibles (puedes buscar mas platos)" flag={isFetching} isTrue="" isFalse="No se encontraron platos" dishes={dishes} group="found">
+          <HomeMessage
+            flag={isFetching}
+            isTrue="Conectandose a la API..."
+            isFalse=""
+          />
+          <Dishes
+            title="Platos disponibles (puedes buscar mas platos)"
+            flag={isFetching}
+            isTrue=""
+            isFalse="No se encontraron platos"
+            dishes={dishes}
+            group="found"
+            buttonAdd="true"
+            buttonDelete="false"
+            buttonDetails="false"
+          >
             <SearchBar />
           </Dishes>
-          
         </Container>
       </div>
     </DataContext.Provider>

@@ -15,10 +15,11 @@ function Item({title, value, unidad}) {
   </Card>);
   }
 
-function MyCards() {  
+function MyCards({title}) {  
  const { total, health, time } = useContext(DataContext);  
   return (      
     <>
+      <h3 className="text-center">{title}</h3>  
       <Row>            
         <Item title="Precio total a pagar: " value={total} key={new Date() + 1000} unidad="pesos"> </Item>      
         <Item title="Health-Score Promedio: " value={health} key={new Date() + 1001} unidad="health score"> </Item>

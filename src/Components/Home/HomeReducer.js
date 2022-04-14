@@ -43,18 +43,22 @@
   function reduceData(state) {
     if (state.dishes)
     {
-    let prices = state.dishes.map((a) => a.price);
-    let times = state.dishes.map((a) => a.time);
-    let healths = state.dishes.map((a) => a.health);
+    let dishesInMenu = state.dishes.filter( (a) => a.group=="inMenu")
+    let prices = dishesInMenu.map((a) => a.price?a.price:0);
+    console.log(prices);
+    let times = dishesInMenu.map((a) => a.time?a.time:0);
+    console.log(times);
+    let healths = dishesInMenu.map((a) => a.health?a.health:0);
+    console.log(healths);
     let sumaPrices = prices.reduce((a, b) => a + b, 0);
     let sumaTime = times.reduce((a, b) => a + b, 0);
     let sumaHealth = healths.reduce((a, b) => a + b, 0);
        
     return {
       ...state,
-      total: sumaPrices,
-      time: (sumaTime / times.length).toFixed(2),
-      health: (sumaHealth / healths.length).toFixed(2),
+      total: sumaPrices.toFixed(2),
+      time: times.length?(sumaTime / times.length).toFixed(2):0,
+      health: healths.length?(sumaHealth / healths.length).toFixed(2):0,
     }}
     else{
       return {...state};
