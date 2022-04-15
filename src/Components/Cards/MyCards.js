@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import { useContext } from "react";
-import { DataContext} from "../Context/DataContext";
+import { DataContext} from "../../Auth/DataContext";
 
 function Item({title, value, unidad}) {
   return(

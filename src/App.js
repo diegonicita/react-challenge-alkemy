@@ -1,15 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Components/Home/Home";
-import About from "./Components/About/About";
-import Contact from "./Components/Contact/Contact";
-import Login from "./Components/Login/Login";
+import Home from "./Pages/Home/Home";
+import About from "./Pages/About/About";
+import Contact from "./Pages/Contact/Contact";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
 import MyNavbar from "./Components/Navbar/MyNavbar";
-import Register from "./Components/Register/Register";
-import { NotLoggedRoute } from "./Components/Routes/NotLoggedRoute";
-import { PrivateRoute } from "./Components/Routes/PrivateRoute";
-import { AuthContext } from "./Components/Context/UserContextAuth";
+import { PublicRoute } from "./Auth/PublicRoute";
+import { PrivateRoute } from "./Auth/PrivateRoute";
+import { UserAuthContext } from "./Auth/UserAuthContext";
 
 function App() {
   const [apiToken, setApiToken] = useState(
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <AuthContext.Provider value={{ user, apiToken}}>
+      <UserAuthContext.Provider value={{ user, apiToken}}>
         <MyNavbar saveUserEmail={saveUserEmail} saveApiToken={saveApiToken}/>
         <Routes>
           <Route
@@ -64,26 +64,26 @@ function App() {
           <Route
             path="login"
             element={
-               <NotLoggedRoute>                
+               <PublicRoute>                
                 <Login
                   saveApiToken={saveApiToken}
                   saveUserEmail={saveUserEmail}                  
                 />
-               </NotLoggedRoute>
+               </PublicRoute>
             }
           />
           <Route
             path="register"
             element={
-               <NotLoggedRoute>                
-                <Register />
-               </NotLoggedRoute>
+               <PublicRoute>                
+                      <Register />
+               </PublicRoute>
             }
           />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
         
-      </AuthContext.Provider>
+      </UserAuthContext.Provider>
     </React.Fragment>
   );
 }

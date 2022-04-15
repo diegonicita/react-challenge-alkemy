@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { DataContext } from "../Context/DataContext";
+import { DataContext } from "../../Auth/DataContext";
 
 // funcion para obtener el endpoint de una receta por su ID
 const getRecipeEndPointByWord = (word) => {

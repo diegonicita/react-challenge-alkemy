@@ -1,8 +1,5 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import HomeMessage from "../Home/HomeMessage";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Message from "../Message/Message";
 import Dish from "./Dish"
 
 function Dishes({title, flag, isTrue, isFalse, dishes, group, children, buttonAdd, buttonDelete, buttonDetails}) {  
@@ -14,7 +11,7 @@ function Dishes({title, flag, isTrue, isFalse, dishes, group, children, buttonAd
   }
 
   return (
-    <Row>
+    <div className="row hidden-md-up justify-content-center">
       
       <h3 className="text-center">{title}</h3>  
       {children}    
@@ -24,20 +21,20 @@ function Dishes({title, flag, isTrue, isFalse, dishes, group, children, buttonAd
           item.buttonDelete = buttonDelete;
           item.buttonDetails = buttonDetails;          
           return (
-            <Col key={new Date() + 100 + index}>
+            <div className="col-md-3" key={new Date() + 100 + index}>
               <Dish {...item} key={new Date() + index} />
-            </Col>
+            </div>
           );
         })
       ) : (
-        <HomeMessage
+        <Message
           flag={flag}
           isTrue=""
           isFalse={"No se encontraron platos"}
         />
       )}
      
-    </Row>
+    </div>
   );
 }
 

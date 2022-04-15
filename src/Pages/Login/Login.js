@@ -9,8 +9,8 @@ import Form from "react-bootstrap/Form";
 import { useEffect, useReducer } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import Casillero from "./Casillero";
-import reducer from "./LoginReducer.js";
+import Casillero from "../../Components/Casillero/Casillero";
+import reducer from "../../Reducers/LoginReducer.js";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 

@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
-import { AuthContext } from "../Context/UserContextAuth";
+import { UserAuthContext } from "../../Auth/UserAuthContext";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -12,7 +12,7 @@ import "./MyNavbar.css";
 import { Link, NavLink } from 'react-router-dom'
 
 function MyNavbar({ saveUserEmail, saveApiToken }) {
-  const { user, apiToken } = useContext(AuthContext);
+  const { user, apiToken } = useContext(UserAuthContext);
 
   const mySwal = withReactContent(Swal);
 
