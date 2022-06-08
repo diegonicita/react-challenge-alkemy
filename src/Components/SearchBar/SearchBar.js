@@ -10,7 +10,7 @@ import { DataContext } from "../../Auth/DataContext";
 const getRecipeEndPointByWord = (word) => {
   //https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&number=2
   let apiStart = "https://api.spoonacular.com/recipes/complexSearch?query=";
-  let apiEnd = "&apiKey=982dbb59956d442983181d47be5b7349";
+  let apiEnd = "&addRecipeInformation=true&apiKey=982dbb59956d442983181d47be5b7349";
   return apiStart + word + apiEnd;
 };
 
@@ -41,8 +41,13 @@ const SearchBar = () => {
               id: r.id,
               title: r.title,
               image: r.image,
-              description: "noness",
-              group: "found",
+              price: r.pricePerServing,
+              servings: r.servings,
+              time: r.readyInMinutes,              
+              health: r.healthScore,                            
+              vegan: r.vegan,              
+              group: "found",              
+              description: "noness"
             };
           });
 

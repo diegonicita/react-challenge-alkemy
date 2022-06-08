@@ -5,7 +5,7 @@ import { DataContext} from "../../Auth/DataContext";
 
 function Item({title, value, unidad}) {
   return(
-  <Card style={{ width: '25rem', margin: '0 auto', marginBottom: '1rem' }}>  
+  <Card style={{ width: '20rem', margin: '0 auto', marginBottom: '1rem' }}>  
     <Card.Body>
       <Card.Title>{title}</Card.Title>
       <Card.Text>

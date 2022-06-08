@@ -21,7 +21,7 @@ function Dishes({title, flag, isTrue, isFalse, dishes, group, children, buttonAd
           item.buttonDelete = buttonDelete;
           item.buttonDetails = buttonDetails;          
           return (
-            <div className="col-md-3" key={new Date() + 100 + index}>
+            <div className="col-md-4" key={new Date() + 100 + index}>
               <Dish {...item} key={new Date() + index} />
             </div>
           );
